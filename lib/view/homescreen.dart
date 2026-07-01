@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 30.h),
               // Category Tabs with Horizontal Scroll
               SizedBox(
                 height: 50.h,
@@ -214,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   },
                 ),
               ),
-              SizedBox(height: 5.h),
+              SizedBox(height: 0.h),
               // Food Items Grid
               GridView.count(
                 crossAxisCount: 2,
@@ -222,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 mainAxisSpacing: 16.h,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                childAspectRatio: 185 / 225,
+                childAspectRatio: 185 / 240,
                 children: [
                   _buildFoodItem(
                     'assets/images/food1.png',
@@ -261,10 +261,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Color(0xFFF7C91B),
-          border: Border.all(
-            color: Color(0xFFFFFFFF),
-            width: 5.w,
-          ),
+          // border: Border.all(
+          //   color: Color(0xFFFFFFFF),
+          //   width: 5.w,
+          // ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 15,
+              spreadRadius: 5,
+              offset: const Offset(0, 8),
+            ),
+          ],
         ),
         child: FloatingActionButton(
           onPressed: () {
@@ -275,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Icon(
             Icons.add,
             color: Color(0xFFFFFFFF),
-            size: 32.sp,
+            size: 36.sp,
           ),
         ),
       ),
@@ -335,13 +343,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget _buildFoodItem(String imagePath, String title, String subtitle, String rating) {
     return Container(
       width: 185.w,
-      height: 225.h,
+      height: 250.h,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
-            color: Color(0x1A000000), // Very light shadow with 10% opacity
+            color: Color(0x1A000000),
             blurRadius: 10,
             spreadRadius: 0,
             offset: const Offset(0, 4),
@@ -355,18 +363,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           Center(
             child: Container(
               width: 120.w,
-              height: 120.h,
+              height: 130.h,
               margin: EdgeInsets.only(top: 11.h),
               alignment: Alignment.center,
               child: Image.asset(
                 imagePath,
                 width: 120.w,
-                height: 120.h,
+                height: 130.h,
                 fit: BoxFit.contain,
               ),
             ),
           ),
-          SizedBox(height: 4.h),
+          SizedBox(height: 8.h),
           // Title - Bold 16px - Left aligned
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -406,7 +414,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           const Spacer(),
           // Rating and Heart
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -432,6 +440,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ],
                 ),
                 // Heart icon
+                
                 Image.asset(
                   'assets/images/heart.png',
                   width: 24.w,
