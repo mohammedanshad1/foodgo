@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'profile_screen.dart'; // Add this import
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -92,18 +93,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ],
                   ),
-                  // Profile Image - Square with 60x60 dimensions
-                  Container(
-                    width: 60.w,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.r),
-                      child: Image.asset(
-                        'assets/images/profile.png',
-                        fit: BoxFit.cover,
+                  // Profile Image - Square with 60x60 dimensions - NOW TAPPABLE
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                      );
+                    },
+                    child: Container(
+                      width: 60.w,
+                      height: 60.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: Image.asset(
+                          'assets/images/profile.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -257,17 +266,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
 
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: 12.h),   // <- gap below the FAB
+        padding: EdgeInsets.only(bottom: 12.h),
         child: Container(
           width: 72.w,
           height: 72.w,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Color(0xFFF7C91B),
-            // border: Border.all(
-            //   color: Color(0xFFFFFFFF),
-            //   width: 5.w,
-            // ),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.3),
@@ -305,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 Icon(
                   iconList[index],
                   size: 30.sp,
-                  color: Color(0xFFFFFFFF), // White icons
+                  color: Color(0xFFFFFFFF),
                 ),
                 if (isActive) ...[
                   SizedBox(height: 4.h),
@@ -321,17 +326,25 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ],
             );
           },
-       activeIndex: _selectedIndex,
+          activeIndex: _selectedIndex,
           gapLocation: GapLocation.center,
           notchSmoothness: NotchSmoothness.smoothEdge,
-          leftCornerRadius: 0,      // was 20 — this was rounding the top-left corner
-          rightCornerRadius: 0,     // was 20 — this was rounding the top-right corner
+          leftCornerRadius: 0,
+          rightCornerRadius: 0,
           onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
+            if (index == 1) {
+              // Navigate to Profile when person icon is tapped
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              );
+            } else {
+              setState(() {
+                _selectedIndex = index;
+              });
+            }
           },
-          backgroundColor: Color(0xFFF7C91B), // Yellow background
+          backgroundColor: Color(0xFFF7C91B),
           splashColor: Color(0xFFFFFFFF).withOpacity(0.3),
           splashSpeedInMilliseconds: 300,
           shadow: BoxShadow(
@@ -364,7 +377,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Food Image - 120x120 centered
           Center(
             child: Container(
               width: 120.w,
@@ -380,7 +392,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           ),
           SizedBox(height: 8.h),
-          // Title - Bold 16px - Left aligned
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Text(
@@ -398,7 +409,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          // Subtitle - Semi Bold 16px - Left aligned
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Text(
@@ -417,13 +427,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           ),
           const Spacer(),
-          // Rating and Heart
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Rating with star image
                 Row(
                   children: [
                     Image.asset(
@@ -444,8 +452,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                   ],
                 ),
-                // Heart icon
-                
                 Image.asset(
                   'assets/images/heart.png',
                   width: 24.w,
