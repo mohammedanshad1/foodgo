@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 60.h,
                       decoration: BoxDecoration(
                         color: Color(0xFFFFFFFF),
-                        borderRadius: BorderRadius.circular(20.r), // Changed to 20px
+                        borderRadius: BorderRadius.circular(20.r),
                         boxShadow: [
                           BoxShadow(
                             color: Color(0x26000000),
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 60.h,
                     decoration: BoxDecoration(
                       color: Color(0xFFF7C91B),
-                      borderRadius: BorderRadius.circular(20.r), // Already 20px
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Center(
                       child: Image.asset(
@@ -150,6 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   separatorBuilder: (context, index) => SizedBox(width: 14.w),
                   itemBuilder: (context, index) {
                     final isSelected = _selectedCategory == index;
+                    // Set different width for "All" tab
+                    final tabWidth = index == 0 ? 75.w : 120.w;
                     return GestureDetector(
                       onTap: () {
                         setState(() {
@@ -157,19 +159,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         });
                       },
                       child: Container(
-                        width: 120.w,
+                        width: tabWidth,
                         height: 50.h,
                         decoration: BoxDecoration(
                           color: isSelected 
-                              ? Color(0xFFF7C91B) 
-                              : Colors.transparent,
+                              ? Color(0xFFF7C91B)  // All tab color - Yellow
+                              : Color(0xFFF3F4F6), // Other tabs color - Light Gray
                           borderRadius: BorderRadius.circular(20.r),
-                          border: Border.all(
-                            color: isSelected 
-                                ? Colors.transparent 
-                                : Color(0xFFE0E0E0),
-                            width: 1,
-                          ),
                         ),
                         child: Center(
                           child: Text(
@@ -177,10 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w500,
-                              fontSize: 14.sp,
+                              fontSize: 16.sp,
                               color: isSelected
-                                  ? Color(0xFF2B2D42)
-                                  : Color(0xFF2B2D42).withOpacity(0.5),
+                                  ? Color(0xFF2B2D42)  // Dark text for selected
+                                  : Color(0xFF2B2D42).withOpacity(0.5), // Light text for unselected
                             ),
                           ),
                         ),
