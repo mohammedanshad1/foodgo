@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodgo/view/homescreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,45 +20,42 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         width: 1.sw,
         height: 1.sh,
-        color: Color(0xFFF9FAFB), // Background color
+        color: Color(0xFFF9FAFB),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 120.h), // Increased top spacing
-                // Welcome Back Text
+                SizedBox(height: 120.h),
                 Text(
                   'Welcome Back',
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                     fontSize: 27.sp,
-                    height: 1.0, // 100% line height
-                    color: Color(0xFFF9C80E), // Welcome back color
+                    height: 1.0,
+                    color: Color(0xFFF9C80E),
                   ),
                 ),
                 SizedBox(height: 20.h),
-                // Login Text
                 Text(
                   'Login',
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                     fontSize: 16.sp,
-                    color: Color(0xFF2B2D42), // Login button text color
+                    color: Color(0xFF2B2D42),
                   ),
                 ),
                 SizedBox(height: 40.h),
-                // Email Field
                 Text(
                   'E mail',
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                     fontSize: 16.sp,
-                    color: Color(0xFF2B2D42), // Login button text color
+                    color: Color(0xFF2B2D42),
                   ),
                 ),
                 SizedBox(height: 8.h),
@@ -92,14 +90,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 20.h),
-                // Password Field
                 Text(
                   'Password',
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                     fontSize: 16.sp,
-                    color: Color(0xFF2B2D42), // Login button text color
+                    color: Color(0xFF2B2D42),
                   ),
                 ),
                 SizedBox(height: 8.h),
@@ -149,7 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 12.h),
-                // Forgot Password
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -158,22 +154,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w500,
                       fontSize: 14.sp,
-                      color: Color(0xFFFF8C69), // Forgot password color
+                      color: Color(0xFFFF8C69),
                     ),
                   ),
                 ),
                 SizedBox(height: 180.h),
-                // Login Button
                 Container(
                   width: 1.sw,
                   height: 56.h,
                   decoration: BoxDecoration(
-                    color: Color(0xFFF7C91B), // Login button color
+                    color: Color(0xFFF7C91B),
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add login logic here
+                      // Navigate to Home Screen
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomeScreen()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
@@ -188,20 +187,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w600,
                         fontSize: 16.sp,
-                        color: Color(0xFF2B2D42), // Login button text color
+                        color: Color(0xFF2B2D42),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(height: 20.h),
-                // Register Link
                 Center(
                   child: RichText(
                     text: TextSpan(
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14.sp,
-                        color: Color(0xFF2B2D42), // "Don't have an account?" color
+                        color: Color(0xFF2B2D42),
                       ),
                       children: [
                         TextSpan(
@@ -212,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFFFF8C69), // Register color
+                            color: Color(0xFFFF8C69),
                           ),
                         ),
                       ],
@@ -220,13 +218,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 30.h),
-                // Or Login With - with border line
                 Row(
                   children: [
                     Expanded(
                       child: Container(
                         height: 0.5.h,
-                        color: Color(0xFF363E44), // Border color
+                        color: Color(0xFF363E44),
                       ),
                     ),
                     Padding(
@@ -245,21 +242,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     Expanded(
                       child: Container(
                         height: 0.5.h,
-                        color: Color(0xFF363E44), // Border color
+                        color: Color(0xFF363E44),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 36.h),
-                // Social Login Buttons - SQUARE SHAPE with new border color
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Google Button - Square
                     GestureDetector(
-                      onTap: () {
-                        // Add Google login logic
-                      },
+                      onTap: () {},
                       child: Container(
                         width: 60.w,
                         height: 60.w,
@@ -267,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: Color(0xFF7BDCB5).withOpacity(0.5), // New border color #7BDCB580
+                            color: Color(0xFF7BDCB5).withOpacity(0.5),
                             width: 1.w,
                           ),
                         ),
@@ -281,11 +274,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(width: 40.w),
-                    // Apple Button - Square
                     GestureDetector(
-                      onTap: () {
-                        // Add Apple login logic
-                      },
+                      onTap: () {},
                       child: Container(
                         width: 60.w,
                         height: 60.w,
@@ -293,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: Color(0xFF7BDCB5).withOpacity(0.5), // New border color #7BDCB580
+                            color: Color(0xFF7BDCB5).withOpacity(0.5),
                             width: 1.w,
                           ),
                         ),
