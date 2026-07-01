@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         child: Stack(
           children: [
-            // Foodgo text and Start Now at bottom left
+            // Foodgo text at bottom left
             Positioned(
               left: 30.w,
               bottom: 100.h,
@@ -41,30 +42,23 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ),
                   SizedBox(height: 8.h),
-                  // Text(
-                  //   'Start Now',
-                  //   style: TextStyle(
-                  //     fontFamily: 'Lobster',
-                  //     fontWeight: FontWeight.w400,
-                  //     fontSize: 24.sp,
-                  //     letterSpacing: 0,
-                  //     color: Colors.white.withOpacity(0.8),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
-            // Arrow image at bottom right - INCREASED SIZE
+            // Arrow image at bottom right - Navigates to Login
             Positioned(
               right: 30.w,
               bottom: 10.h,
               child: GestureDetector(
                 onTap: () {
-                  // Add navigation or action here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  );
                 },
                 child: Container(
-                  width: 140.w,  // Increased from 80 to 120
-                  height: 140.w, // Increased from 80 to 120
+                  width: 140.w,
+                  height: 140.w,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
