@@ -9,18 +9,48 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   int _selectedIndex = 0;
   int _selectedCategory = 0;
   final List<String> categories = ['All', 'Combos', 'Sliders', 'Classifieds'];
   
-  // Icon list for bottom navigation
+  // Icon list for bottom navigation - Using Material Icons
   final List<IconData> iconList = [
     Icons.home,
-    Icons.favorite_border,
-    Icons.shopping_cart_outlined,
     Icons.person_outline,
+    Icons.comment_rounded,
+    Icons.favorite_border,
   ];
+
+  late AnimationController _fabAnimationController;
+  late Animation<double> fabAnimation;
+  late CurvedAnimation fabCurve;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _fabAnimationController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+    fabCurve = CurvedAnimation(
+      parent: _fabAnimationController,
+      curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
+    );
+    fabAnimation = Tween<double>(begin: 0, end: 1).animate(fabCurve);
+
+    Future.delayed(
+      Duration(seconds: 1),
+      () => _fabAnimationController.forward(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _fabAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSpacing: 16.h,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                childAspectRatio: 185 / 225, // width:height ratio
+                childAspectRatio: 185 / 225,
                 children: [
                   _buildFoodItem(
                     'assets/images/food1.png',
@@ -225,148 +255,194 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your action here
-        },
-        backgroundColor: Color(0xFFF7C91B),
-        child: Icon(
-          Icons.add,
-          color: Color(0xFF2B2D42),
-          size: 32.sp,
+      floatingActionButton: Container(
+        width: 72.w,
+        height: 72.w,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xFFF7C91B),
+          border: Border.all(
+            color: Color(0xFFFFFFFF),
+            width: 5.w,
+          ),
         ),
-        elevation: 4,
+        child: FloatingActionButton(
+          onPressed: () {
+            // Add your action here
+          },
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Icon(
+            Icons.add,
+            color: Color(0xFFFFFFFF),
+            size: 32.sp,
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        icons: iconList,
-        activeIndex: _selectedIndex,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.verySmoothEdge,
-        leftCornerRadius: 32,
-        rightCornerRadius: 32,
-        activeColor: Color(0xFFF7C91B),
-        inactiveColor: Color(0xFF2B2D42).withOpacity(0.5),
-        iconSize: 24.sp,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
+      bottomNavigationBar: Container(
+        width: 456.w,
+        height: 90.h,
+        child: AnimatedBottomNavigationBar.builder(
+          itemCount: iconList.length,
+          tabBuilder: (int index, bool isActive) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  iconList[index],
+                  size: 24.sp,
+                  color: Color(0xFFFFFFFF), // White icons
+                ),
+                if (isActive) ...[
+                  SizedBox(height: 4.h),
+                  Container(
+                    width: 6.w,
+                    height: 6.h,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFFFFFF),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ],
+              ],
+            );
+          },
+          activeIndex: _selectedIndex,
+          gapLocation: GapLocation.center,
+          notchSmoothness: NotchSmoothness.smoothEdge,
+          leftCornerRadius: 20,
+          rightCornerRadius: 20,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          backgroundColor: Color(0xFFF7C91B), // Yellow background
+          splashColor: Color(0xFFFFFFFF).withOpacity(0.3),
+          splashSpeedInMilliseconds: 300,
+          shadow: BoxShadow(
+            offset: Offset(0, -2),
+            blurRadius: 10,
+            spreadRadius: 0,
+            color: Colors.black.withOpacity(0.1),
+          ),
+        ),
       ),
     );
   }
 
-Widget _buildFoodItem(String imagePath, String title, String subtitle, String rating) {
-  return Container(
-    width: 185.w,
-    height: 225.h,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(20.r),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 10,
-          offset: const Offset(0, 5),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start, // Left aligned
-      children: [
-        // Food Image - 120x120 centered
-        Center(
-          child: Container(
-            width: 120.w,
-            height: 120.h,
-            margin: EdgeInsets.only(top: 11.h),
-            alignment: Alignment.center,
-            child: Image.asset(
-              imagePath,
+  Widget _buildFoodItem(String imagePath, String title, String subtitle, String rating) {
+    return Container(
+      width: 185.w,
+      height: 225.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.r),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x1A000000), // Very light shadow with 10% opacity
+            blurRadius: 10,
+            spreadRadius: 0,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Food Image - 120x120 centered
+          Center(
+            child: Container(
               width: 120.w,
               height: 120.h,
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-        SizedBox(height: 4.h),
-        // Title - Bold 16px - Left aligned
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
-          child: Text(
-            title,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w700,
-              fontSize: 16.sp,
-              height: 1.39,
-              letterSpacing: 0,
-              color: Color(0xFF2B2D42),
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        // Subtitle - Semi Bold 16px - Left aligned
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
-          child: Text(
-            subtitle,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w400,
-              fontSize: 15.sp,
-              height: 1.39,
-              letterSpacing: 0,
-              color: Color(0xFF2B2D42).withOpacity(0.6),
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        const Spacer(),
-        // Rating and Heart
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Rating with star image
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/images/star.png',
-                    width: 16.w,
-                    height: 16.h,
-                    fit: BoxFit.contain,
-                  ),
-                  SizedBox(width: 4.w),
-                  Text(
-                    rating,
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12.sp,
-                      color: Color(0xFF2B2D42),
-                    ),
-                  ),
-                ],
-              ),
-              // Heart icon
-              Image.asset(
-                'assets/images/heart.png',
-                width: 24.w,
-                height: 24.h,
+              margin: EdgeInsets.only(top: 11.h),
+              alignment: Alignment.center,
+              child: Image.asset(
+                imagePath,
+                width: 120.w,
+                height: 120.h,
                 fit: BoxFit.contain,
               ),
-            ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+          SizedBox(height: 4.h),
+          // Title - Bold 16px - Left aligned
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Text(
+              title,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w700,
+                fontSize: 16.sp,
+                height: 1.39,
+                letterSpacing: 0,
+                color: Color(0xFF2B2D42),
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          // Subtitle - Semi Bold 16px - Left aligned
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Text(
+              subtitle,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 15.sp,
+                height: 1.39,
+                letterSpacing: 0,
+                color: Color(0xFF2B2D42).withOpacity(0.6),
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const Spacer(),
+          // Rating and Heart
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Rating with star image
+                Row(
+                  children: [
+                    Image.asset(
+                      'assets/images/star.png',
+                      width: 16.w,
+                      height: 16.h,
+                      fit: BoxFit.contain,
+                    ),
+                    SizedBox(width: 4.w),
+                    Text(
+                      rating,
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12.sp,
+                        color: Color(0xFF2B2D42),
+                      ),
+                    ),
+                  ],
+                ),
+                // Heart icon
+                Image.asset(
+                  'assets/images/heart.png',
+                  width: 24.w,
+                  height: 24.h,
+                  fit: BoxFit.contain,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
