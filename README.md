@@ -51,5 +51,5 @@ A Flutter-based food delivery application with user authentication, food browsin
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/foodgo.git
+git clone https://github.com/mohammedanshad1/foodgo.git
 cd foodgo
