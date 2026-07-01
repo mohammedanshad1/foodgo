@@ -1,16 +1,55 @@
-# foodgo
+# 🍔 Foodgo - Food Delivery App
 
-A new Flutter project.
+A Flutter-based food delivery application with user authentication, food browsing, and profile management features.
 
-## Getting Started
+## 📱 Features
 
-This project is a starting point for a Flutter application.
+- **Authentication System**
+  - Login with email/password
+  - Secure token storage using SharedPreferences
+  - Auto-login on app restart
+  - Logout with confirmation dialog
 
-A few resources to get you started if this is your first Flutter project:
+- **Splash Screen**
+  - Beautiful background with Foodgo branding
+  - Auto-navigation based on login status
+  - "Start Now" button for manual navigation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Home Screen**
+  - Browse food items with grid layout
+  - Category filters (All, Combos, Sliders, Classifieds)
+  - Search functionality
+  - Settings shortcut
+  - Food items with ratings and favorites
+  - Animated bottom navigation bar
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Profile Screen**
+  - User information display (email, username)
+  - Logout option
+  - Edit profile (coming soon)
+  - Settings (coming soon)
+  - Help & Support (coming soon)
+
+## 🛠️ Tech Stack
+
+- **Flutter SDK 3.7.0+**
+- **State Management:** Provider
+- **Networking:** Dio
+- **Local Storage:** SharedPreferences
+- **Responsive Design:** flutter_screenutil
+- **Navigation:** animated_bottom_navigation_bar
+- **Custom Fonts:** Inter, Lobster
+
+## 📦 Installation
+
+### Prerequisites
+- Flutter SDK 3.7.0 or higher
+- Android Studio / VS Code
+- Android Emulator or Physical Device
+
+### Step-by-Step Setup
+
+#### 1. Clone the repository
+```bash
+git clone https://github.com/yourusername/foodgo.git
+cd foodgo
