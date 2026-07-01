@@ -150,7 +150,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   separatorBuilder: (context, index) => SizedBox(width: 14.w),
                   itemBuilder: (context, index) {
                     final isSelected = _selectedCategory == index;
-                    // Set different width for "All" tab
                     final tabWidth = index == 0 ? 75.w : 120.w;
                     return GestureDetector(
                       onTap: () {
@@ -163,8 +162,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 50.h,
                         decoration: BoxDecoration(
                           color: isSelected 
-                              ? Color(0xFFF7C91B)  // All tab color - Yellow
-                              : Color(0xFFF3F4F6), // Other tabs color - Light Gray
+                              ? Color(0xFFF7C91B)
+                              : Color(0xFFF3F4F6),
                           borderRadius: BorderRadius.circular(20.r),
                         ),
                         child: Center(
@@ -175,8 +174,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.w500,
                               fontSize: 16.sp,
                               color: isSelected
-                                  ? Color(0xFF2B2D42)  // Dark text for selected
-                                  : Color(0xFF2B2D42).withOpacity(0.5), // Light text for unselected
+                                  ? Color(0xFF2B2D42)
+                                  : Color(0xFF2B2D42).withOpacity(0.5),
                             ),
                           ),
                         ),
@@ -185,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 5.h),
               // Food Items Grid
               GridView.count(
                 crossAxisCount: 2,
@@ -193,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSpacing: 16.h,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                childAspectRatio: 0.75,
+                childAspectRatio: 185 / 225, // width:height ratio
                 children: [
                   _buildFoodItem(
                     'assets/images/food1.png',
@@ -258,89 +257,116 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildFoodItem(String imagePath, String title, String subtitle, String rating) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
+Widget _buildFoodItem(String imagePath, String title, String subtitle, String rating) {
+  return Container(
+    width: 185.w,
+    height: 225.h,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20.r),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.05),
+          blurRadius: 10,
+          offset: const Offset(0, 5),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start, // Left aligned
+      children: [
+        // Food Image - 120x120 centered
+        Center(
+          child: Container(
+            width: 120.w,
             height: 120.h,
-            width: 1.sw,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              ),
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
+            margin: EdgeInsets.only(top: 11.h),
+            alignment: Alignment.center,
+            child: Image.asset(
+              imagePath,
+              width: 120.w,
+              height: 120.h,
+              fit: BoxFit.contain,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(12.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14.sp,
-                    color: Color(0xFF2B2D42),
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                    color: Color(0xFF2B2D42).withOpacity(0.6),
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 8.h),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: Color(0xFFF7C91B),
-                      size: 16.sp,
-                    ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      rating,
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12.sp,
-                        color: Color(0xFF2B2D42),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+        ),
+        SizedBox(height: 4.h),
+        // Title - Bold 16px - Left aligned
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Text(
+            title,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w700,
+              fontSize: 16.sp,
+              height: 1.39,
+              letterSpacing: 0,
+              color: Color(0xFF2B2D42),
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-        ],
-      ),
-    );
-  }
+        ),
+        // Subtitle - Semi Bold 16px - Left aligned
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Text(
+            subtitle,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+              fontSize: 15.sp,
+              height: 1.39,
+              letterSpacing: 0,
+              color: Color(0xFF2B2D42).withOpacity(0.6),
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        const Spacer(),
+        // Rating and Heart
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Rating with star image
+              Row(
+                children: [
+                  Image.asset(
+                    'assets/images/star.png',
+                    width: 16.w,
+                    height: 16.h,
+                    fit: BoxFit.contain,
+                  ),
+                  SizedBox(width: 4.w),
+                  Text(
+                    rating,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12.sp,
+                      color: Color(0xFF2B2D42),
+                    ),
+                  ),
+                ],
+              ),
+              // Heart icon
+              Image.asset(
+                'assets/images/heart.png',
+                width: 24.w,
+                height: 24.h,
+                fit: BoxFit.contain,
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
 }
