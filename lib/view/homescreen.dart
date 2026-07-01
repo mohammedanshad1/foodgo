@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 60.h),
+              SizedBox(height: 50.h), // Adjusted top spacing
               // Header with Foodgo and Profile
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,17 +62,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
+                  // Profile Image - Square with 60x60 dimensions
                   Container(
-                    width: 50.w,
-                    height: 50.w,
+                    width: 60.w,
+                    height: 60.h,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Color(0xFFF7C91B),
-                        width: 2.w,
-                      ),
+                      borderRadius: BorderRadius.circular(12.r), // Optional: small rounded corners
+                      // border: Border.all(
+                      //   color: Color(0xFFF7C91B),
+                      //   width: 2.w,
+                      // ),
                     ),
-                    child: ClipOval(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.r),
                       child: Image.asset(
                         'assets/images/profile.png',
                         fit: BoxFit.cover,
@@ -81,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 40.h),
               // Search Bar with Settings Slider - Side by Side
               Row(
                 children: [
