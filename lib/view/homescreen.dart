@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 50.h), // Adjusted top spacing
+              SizedBox(height: 50.h),
               // Header with Foodgo and Profile
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontFamily: 'Lobster',
                           fontWeight: FontWeight.w400,
                           fontSize: 45.sp,
-                          height: 1.35, // 135% line height
+                          height: 1.35,
                           letterSpacing: 0,
                           color: Color(0xFF3C2F2F),
                         ),
@@ -67,11 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 60.w,
                     height: 60.h,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r), // Optional: small rounded corners
-                      // border: Border.all(
-                      //   color: Color(0xFFF7C91B),
-                      //   width: 2.w,
-                      // ),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.r),
@@ -87,16 +83,17 @@ class _HomeScreenState extends State<HomeScreen> {
               // Search Bar with Settings Slider - Side by Side
               Row(
                 children: [
-                  // Search Bar - Expanded
+                  // Search Bar - Expanded with 20px border radius
                   Expanded(
                     child: Container(
+                      height: 60.h,
                       decoration: BoxDecoration(
                         color: Color(0xFFFFFFFF),
-                        borderRadius: BorderRadius.circular(12.r),
+                        borderRadius: BorderRadius.circular(20.r), // Changed to 20px
                         boxShadow: [
                           BoxShadow(
                             color: Color(0x26000000),
-                            blurRadius: 19,
+                            blurRadius: 6,
                             offset: Offset(0, 4),
                           ),
                         ],
@@ -106,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           hintText: 'Search',
                           hintStyle: TextStyle(
                             fontFamily: 'Inter',
-                            fontSize: 14.sp,
+                            fontSize: 17.sp,
                             color: Color(0xFF2B2D42).withOpacity(0.5),
                           ),
                           border: InputBorder.none,
@@ -116,21 +113,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           prefixIcon: Icon(
                             Icons.search,
-                            color: Color(0xFF2B2D42).withOpacity(0.6),
-                            size: 24.sp,
+                            color: Colors.black,
+                            size: 29.sp,
                           ),
                         ),
                       ),
                     ),
                   ),
                   SizedBox(width: 12.w),
-                  // Settings Slider Container - Fixed Size
+                  // Settings Slider Container - Fixed Size with 20px border radius
                   Container(
                     width: 60.w,
                     height: 60.h,
                     decoration: BoxDecoration(
                       color: Color(0xFFF7C91B),
-                      borderRadius: BorderRadius.circular(20.r),
+                      borderRadius: BorderRadius.circular(20.r), // Already 20px
                     ),
                     child: Center(
                       child: Image.asset(
