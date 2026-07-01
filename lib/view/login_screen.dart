@@ -108,7 +108,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: Color(0xFF363E44).withOpacity(0.5),
+                            color: Color(0xFF363E44).withOpacity(0.4), // #363E4466 = 40% opacity
+                            width: 0.5.w,
                           ),
                         ),
                         child: TextField(
@@ -150,7 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: Color(0xFF363E44).withOpacity(0.5),
+                            color: Color(0xFF363E44).withOpacity(0.4), // #363E4466 = 40% opacity
+                            width: 0.5.w,
                           ),
                         ),
                         child: TextField(
@@ -338,7 +340,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(12.r),
                                 border: Border.all(
                                   color: Color(0xFF7BDCB5).withOpacity(0.5),
-                                  width: 1.w,
+                                  width: 0.5.w,
                                 ),
                               ),
                               child: Padding(
@@ -361,7 +363,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(12.r),
                                 border: Border.all(
                                   color: Color(0xFF7BDCB5).withOpacity(0.5),
-                                  width: 1.w,
+                                  width: 0.5.w,
                                 ),
                               ),
                               child: Padding(
