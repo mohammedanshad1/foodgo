@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'login_screen.dart';
+import 'package:foodgo/service/api_service.dart';
+import 'package:foodgo/view/login_screen.dart';
+import 'package:foodgo/view/homescreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,6 +12,36 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    // Wait for 2 seconds for splash screen display
+    await Future.delayed(const Duration(seconds: 2));
+    
+    // Check if user is logged in
+    bool isLoggedIn = await ApiService.isLoggedIn();
+    
+    if (mounted) {
+      if (isLoggedIn) {
+        // Navigate to Home Screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+        // Navigate to Login Screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,16 +77,25 @@ class _SplashScreenState extends State<SplashScreen> {
                 ],
               ),
             ),
-            // Arrow image at bottom right - Navigates to Login
+            // Arrow image at bottom right
             Positioned(
               right: 30.w,
               bottom: 10.h,
               child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()),
-                  );
+                onTap: () async {
+                  // Check login status before navigating
+                  bool isLoggedIn = await ApiService.isLoggedIn();
+                  if (isLoggedIn) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    );
+                  }
                 },
                 child: Container(
                   width: 140.w,
