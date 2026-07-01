@@ -255,39 +255,44 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
         ),
       ),
-      floatingActionButton: Container(
-        width: 72.w,
-        height: 72.w,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Color(0xFFF7C91B),
-          // border: Border.all(
-          //   color: Color(0xFFFFFFFF),
-          //   width: 5.w,
-          // ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 15,
-              spreadRadius: 5,
-              offset: const Offset(0, 8),
+
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(bottom: 12.h),   // <- gap below the FAB
+        child: Container(
+          width: 72.w,
+          height: 72.w,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xFFF7C91B),
+            // border: Border.all(
+            //   color: Color(0xFFFFFFFF),
+            //   width: 5.w,
+            // ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                blurRadius: 15,
+                spreadRadius: 5,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: FloatingActionButton(
+            onPressed: () {
+              // Add your action here
+            },
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            child: Icon(
+              Icons.add,
+              color: Color(0xFFFFFFFF),
+              size: 36.sp,
             ),
-          ],
-        ),
-        child: FloatingActionButton(
-          onPressed: () {
-            // Add your action here
-          },
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: Icon(
-            Icons.add,
-            color: Color(0xFFFFFFFF),
-            size: 36.sp,
           ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      
       bottomNavigationBar: Container(
         width: 456.w,
         height: 90.h,
@@ -299,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               children: [
                 Icon(
                   iconList[index],
-                  size: 24.sp,
+                  size: 30.sp,
                   color: Color(0xFFFFFFFF), // White icons
                 ),
                 if (isActive) ...[
@@ -316,11 +321,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ],
             );
           },
-          activeIndex: _selectedIndex,
+       activeIndex: _selectedIndex,
           gapLocation: GapLocation.center,
           notchSmoothness: NotchSmoothness.smoothEdge,
-          leftCornerRadius: 20,
-          rightCornerRadius: 20,
+          leftCornerRadius: 0,      // was 20 — this was rounding the top-left corner
+          rightCornerRadius: 0,     // was 20 — this was rounding the top-right corner
           onTap: (index) {
             setState(() {
               _selectedIndex = index;
